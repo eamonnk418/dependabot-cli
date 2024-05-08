@@ -21,19 +21,25 @@ func NewCmdRoot() *cobra.Command {
 			With this tool, you can quickly create configuration files for Dependabot to use.
 		`),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			// Create Dependabot template factory
-			tmplFactory, err := factory.NewTemplateFactory("npm", &model.DependabotConfig{
+			// Define package ecosystem
+			packageEcosystem := "npm"
+
+			// Create Dependabot configuration
+			dependabotYml := &model.DependabotConfig{
 				Version: 2,
 				Updates: []model.DependencyUpdate{
 					{
-						PackageEcosystem: "npm",
+						PackageEcosystem: packageEcosystem,
 						Directory:        "/",
 						Schedule: model.UpdateSchedule{
-							Interval: "daily",
+							Interval: "weekly",
 						},
 					},
 				},
-			})
+			}
+
+			// Create Dependabot template factory
+			tmplFactory, err := factory.NewTemplateFactory(packageEcosystem, dependabotYml)
 			if err != nil {
 				return err
 			}

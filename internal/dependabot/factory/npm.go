@@ -9,7 +9,7 @@ import (
 	"github.com/eamonnk418/dependabot-cli/internal/dependabot/model"
 )
 
-//go:embed template/dependabot.tmpl
+//go:embed template/npm.tmpl
 var npmTemplate string
 
 // NpmTemplateFactory is a factory for creating npm Dependabot templates.
@@ -26,13 +26,10 @@ func NewNpmTemplateFactory(dependabot *model.DependabotConfig) *NpmTemplateFacto
 
 // CreateTemplate creates an npm Dependabot template.
 func (f *NpmTemplateFactory) CreateTemplate() (string, error) {
-	tmpl, err := template.New("npm").Parse(npmTemplate)
-	if err != nil {
-		return "", fmt.Errorf("failed to parse npm template: %w", err)
-	}
+	tmpl := template.Must(template.New("npm").Parse(npmTemplate))
 
 	var buf bytes.Buffer
-	if err := tmpl.Execute(&buf, f.Dependabot); err != nil {
+	if err := tmpl.ExecuteTemplate(&buf, "npm", f.Dependabot); err != nil {
 		return "", fmt.Errorf("failed to execute npm template: %w", err)
 	}
 

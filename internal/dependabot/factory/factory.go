@@ -18,8 +18,6 @@ func NewTemplateFactory(packageEcosystem string, dependabot *model.DependabotCon
 	switch packageEcosystem {
 	case "npm":
 		return NewNpmTemplateFactory(dependabot), nil
-	case "pip":
-		return NewPipTemplateFactory(), nil
 	default:
 		return nil, ErrUnsupportedPackageEcosystem
 	}

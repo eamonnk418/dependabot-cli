@@ -1,0 +1,8 @@
+{{ define "base" }}
+{{ if eq .PackageEcosystem "npm" }}
+// Dependabot configuration template for npm
+  {{ template "npm" . }}
+{{ else }}
+// Unsupported package ecosystem: {{ .PackageEcosystem }}
+{{ end }}
+{{ end }}

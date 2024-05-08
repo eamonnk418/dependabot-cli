@@ -1,3 +1,4 @@
+{{ define "npm" }}
 version: {{ .Version }}
 updates:
 {{ range .Updates }}
@@ -5,4 +6,5 @@ updates:
     directory: "{{ .Directory }}"
     schedule:
       interval: "{{ .Schedule.Interval }}"
+{{ end }}
 {{ end }}
