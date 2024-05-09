@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/MakeNowJust/heredoc"
-	"github.com/eamonnk418/dependabot-cli/pkg/cmd/repo"
+	"github.com/eamonnk418/dependabot-cli/pkg/cmd/config"
 	"github.com/spf13/cobra"
 )
 
@@ -19,7 +19,7 @@ func NewCmdRoot() *cobra.Command {
 		`),
 	}
 
-	cmd.AddCommand(repo.NewCmdRepo())
+	cmd.AddCommand(config.NewCmdConfig())
 
 	return cmd
 }
